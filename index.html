@@ -53,8 +53,11 @@
                 <input type="password" name="password" id="signup-password" placeholder="パスワードを入力してください" class="rounded-md w-3/4 p-1">
             </div>
 
-            <button id="signup-btn" class="bg-gray-400 hover:bg-gray-500 rounded p-2 text-white">登録する</4button>
+            <button id="signup-btn" class="bg-gray-400 hover:bg-gray-500 rounded p-2 text-white">登録する</button>
             
+            <div class="mt-4">
+                <a href="#login-link" id="login-link" class="text-blue-500 hover:underline">ログインはこちら</a>
+            </div>
         </div>
 
     <!-- ログイン -->
@@ -81,7 +84,7 @@
             <button id="login-btn" class="bg-gray-400 hover:bg-gray-500 rounded p-2 text-white">ログイン</button>
 
             <div class="mt-4">
-                <a href="#register" class="text-blue-500 hover:underline">新規登録はこちら</a>
+                <a href="#register" id="register-link" class="text-blue-500 hover:underline">新規登録はこちら</a>
             </div>
             
         </div>
@@ -112,7 +115,16 @@
                 <textarea name="memo" id="memo" placeholder="メモを入力してください" class="rounded-md w-3/4 p-1"></textarea>
             </div>
 
+            <div class="flex flex-col w-full items-center mb-6">
+                <label for="upload-image" class="mb-2">画像アップロード</label>
+                <input type="file" name="upload-image" id="upload-image" accept="image/*" class="rounded-md w-3/4 p-1">
+            </div>
+
             <button id="submit-btn" class="bg-gray-400 hover:bg-gray-500 rounded p-2 text-white">記録</button>
+
+            <a href="#view-records" id="view-records-btn" class="fixed bottom-20 right-4 bg-blue-500 text-white rounded-full w-16 h-16 flex justify-center items-center shadow-lg hover:bg-blue-600 p-4">
+                <span class="text-sm text-center">過去の記録</span>
+            </a>
             
         </div>
 
@@ -121,6 +133,10 @@
             <div class="text-2xl font-bold pb-5">
             <p>記録</p>
             </div>
+
+            <a href="#view-records" id="post-link-btn" class="fixed bottom-20 right-4 bg-orange-500 text-white rounded-full w-16 h-16 flex justify-center items-center shadow-lg hover:bg-orange-600 p-4">
+                <span class="text-sm text-center">新規投稿</span>
+            </a>
 
         </div>
          
@@ -133,7 +149,7 @@
 
     </div>
 
-    <script type="module" src="script.js"></script>
+    <script type="module" src="../script.js"></script>
     
 </body>
 </html>
