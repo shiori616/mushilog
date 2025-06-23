@@ -86,15 +86,12 @@ function showSection(sectionToShow) {
     初期画面
 -------------------------------- */
 
-
-
 document.addEventListener('DOMContentLoaded', function() {
     showSection(loginSection);
     const registerLink = document.querySelector('a[href="#register"]');
     if (registerLink) {
         registerLink.addEventListener('click', function(event) {
             event.preventDefault(); // デフォルトのリンク挙動を防止
-            showSection(registerSection);
         });
     } else {
         showSection(loginSection);
@@ -111,6 +108,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const signUpEmail = document.querySelector('#signup-email');
     const signupPassword = document.querySelector('#signup-password');
     const signupBtn = document.querySelector('#signup-btn');
+    const loginLink = document.getElementById('login-link');
+
+    if (loginLink) {
+        loginLink.addEventListener('click', function(event) {
+            event.preventDefault(); // デフォルトのリンク挙動を防止
+            showSection(loginSection);
+        });
+    }
 
     if (signupBtn) {
         signupBtn.addEventListener("click", function () {
@@ -143,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .then((userCredential) => {
                 alert("登録が完了しました");
-                showSection(loginSection);// 登録成功後、投稿画面に切り替え
+                showSection(postScreen);// 登録成功後、投稿画面に切り替え
                 })
                 .catch((error) => {
                 alert("登録できません");
@@ -159,7 +164,7 @@ const loginUserId = document.getElementById("login-userID");
 const loginEmail = document.getElementById("login-email");
 const loginPassword = document.getElementById("login-password");
 const loginBtn = document.getElementById("login-btn");
-const registerLink = document.querySelector('a[href="#register"]');
+const registerLink = document.getElementById('register-link');
 
 if (registerLink) {
     registerLink.addEventListener('click', function(event) {
@@ -244,7 +249,16 @@ async function getMailAddressByUserID(userID) {
 const insectType = document.getElementById("insect-type");
 const collectPlace = document.getElementById("collect-place");
 const recordDate = document.getElementById("record-date");
+const memo = document.getElementById("memo");
 const submitBtn = document.getElementById("submit-btn");
+const viewRecordsBtn = document.getElementById("view-records-btn")
+
+if (viewRecordsBtn) {
+    viewRecordsBtn.addEventListener('click', function(event) {
+        event.preventDefault(); // デフォルトのリンク挙動を防止
+        showSection(viewRecords);
+    });
+}
 
 if (submitBtn) {
     submitBtn.addEventListener("click", function () {
@@ -252,6 +266,16 @@ if (submitBtn) {
         const place = collectPlace.value;
         const date = recordDate.value;
 
+        const memoElement = document.getElementById("memo");
+        let memoValue = ""; // デフォルト値を空文字列に設定
+        if (memoElement) {
+          memoValue = memoElement.value; // memo の値を取得
+        } else {
+          console.error("id='memo' の要素が見つかりません");
+        }
+
+        // 画像ファイルの取得
+        const imageFile = document.getElementById("upload-image").files[0];
 
         // 必須項目が入力されているか確認
         if (!type || !place || !date) {
@@ -264,8 +288,10 @@ if (submitBtn) {
             insectType: type,
             collectPlace: place,
             recordDate: date,
+            memo: memoValue, // ここで memoValue を使用
             // ユーザーIDを追加
             userID: auth.currentUser ? auth.currentUser.uid : "unknown", // ログインしていなければ"unknown"
+            imageUrl: imageFile ? 'images/' + imageFile.name : null, // 画像のURL
         })
             .then(() => {
                 alert("記録を保存しました");
@@ -273,6 +299,7 @@ if (submitBtn) {
                 insectType.value = "";
                 collectPlace.value = "";
                 recordDate.value = "";
+                document.getElementById("upload-image").value = ""; // 画像選択をリセット
                 showSection(viewRecords);
             })
             .catch((error) => {
@@ -285,6 +312,14 @@ if (submitBtn) {
 　投稿記録
 -------------------------------- */
 const viewRecordsSection = document.getElementById("view-records");
+const postLinkBtn = document.getElementById("post-link-btn");
+
+if (postLinkBtn) {
+    postLinkBtn.addEventListener('click', function(event) {
+        event.preventDefault(); // デフォルトのリンク挙動を防止
+        showSection(postScreen);
+    });
+}
 
 // データベースから記録を取得して表示
 onChildAdded(dbRef, (data) => {
@@ -309,6 +344,22 @@ onChildAdded(dbRef, (data) => {
     dateDiv.classList.add("flex", "flex-col", "w-full", "items-center", "mb-6");
     dateDiv.innerHTML = `<p class="text-lg font-semibold">日付: <span>${record.recordDate}</span></p>`;
 
+    // メモの要素を作成（メモがある場合のみ）
+    let memoDiv = document.createElement("div");
+    memoDiv.classList.add("flex", "flex-col", "w-full", "items-center", "mb-6");
+    if (record.memo) {
+        memoDiv.innerHTML = `<p class="text-lg font-semibold">メモ: <span>${record.memo}</span></p>`;
+    } else {
+        memoDiv.innerHTML = `<p class="text-lg font-semibold">メモ: <span></span></p>`; // 空のメモ
+    }
+
+    // 画像の要素を作成（画像URLがある場合のみ）
+    let imageDiv = document.createElement("div");
+    imageDiv.classList.add("flex", "flex-col", "w-full", "items-center", "mb-6");
+    if (record.imageUrl) {
+        imageDiv.innerHTML = `<img src="${record.imageUrl}" alt="記録画像" class="max-w-full h-auto">`;
+    }
+
     // 削除ボタンを作成
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "削除";
@@ -329,6 +380,7 @@ onChildAdded(dbRef, (data) => {
     recordDiv.appendChild(typeDiv);
     recordDiv.appendChild(placeDiv);
     recordDiv.appendChild(dateDiv);
+    recordDiv.appendChild(memoDiv); // メモを追加
     recordDiv.appendChild(deleteButton); // 削除ボタンを追加
 
     // 記録の要素を記録表示セクションに追加
