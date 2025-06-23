@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>むしログ</title>
+
+    <!-- リセットCSS 
+    <link rel="stylesheet" href="./css/reset.css">
+     スタイルCSS 
+    <link rel="stylesheet" href="./css/style.css">-->
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles:wght@400;700&family=Noto+Sans+JP:wght@100..900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <header class="fixed top-0 left-0 w-full bg-white border-b border-gray-200 p-4 z-10">
+        <p class="text-4xl font-bold text-center">むしログ</p>
+    </header>
+
+
+    <!-- ここにメインコンテンツ読み込む -->
+    <!-- 新規会員登録 -->
+    <div id="container" class="flex flex-col justify-center items-center">
+
+        
+        <div class="flex flex-col w-4/5 bg-green-100 items-center p-4 pt-6 pb-6 rounded-lg mt-10" id="register">
+            <div class="text-2xl font-bold pb-5">
+                <p>会員登録</p>
+            </div>
+
+            <div class="flex flex-col w-full items-center mb-6">
+                <label for="signup-userID" class="mb-2">ユーザーID</label>
+                <input type="userID" name="userID" id="signup-userID" placeholder="ご希望のユーザーIDを入力してください" class="rounded-md w-3/4 p-1">
+            </div>
+
+            <div class="flex flex-col w-full items-center mb-6">
+                <label for="signup-email" class="mb-2">メールアドレス</label>
+                <input type="email" name="email" id="signup-email" placeholder="メールアドレスを入力してください" class="rounded-md w-3/4 p-1">
+            </div>
+                
+            <div class="flex flex-col w-full items-center mb-6">
+                <label for="signup-email" class="mb-2">パスワード</label>
+                <input type="password" name="password" id="signup-password" placeholder="パスワードを入力してください" class="rounded-md w-3/4 p-1">
+            </div>
+
+            <button id="signup-btn" class="bg-gray-400 hover:bg-gray-500 rounded p-2 text-white">登録する</4button>
+            
+        </div>
+
+    <!-- ログイン -->
+        <div class="flex flex-col w-4/5 bg-blue-100 items-center p-4 pt-6 pb-6 rounded-lg mt-10" id="login">
+            <div class="text-2xl font-bold pb-5">
+                <p>ログイン</p>
+            </div>
+
+            <div class="flex flex-col w-full items-center mb-6">
+                <label for="login-userID" class="mb-2">ユーザーID</label>
+                <input type="userID" name="userID" id="login-userID" placeholder="ユーザーIDを入力してください" class="rounded-md w-3/4 p-1">
+            </div>
+
+            <div class="flex flex-col w-full items-center mb-6">
+                <label for="login-email" class="mb-2">メールアドレス</label>
+                <input type="email" name="email" id="login-email" placeholder="メールアドレスを入力してください" class="rounded-md w-3/4 p-1">
+            </div>
+                
+            <div class="flex flex-col w-full items-center mb-6">
+                <label for="login-email" class="mb-2">パスワード</label>
+                <input type="password" name="password" id="login-password" placeholder="パスワードを入力してください" class="rounded-md w-3/4 p-1">
+            </div>
+
+            <button id="login-btn" class="bg-gray-400 hover:bg-gray-500 rounded p-2 text-white">ログイン</button>
+
+            <div class="mt-4">
+                <a href="#register" class="text-blue-500 hover:underline">新規登録はこちら</a>
+            </div>
+            
+        </div>
+
+        <!-- 投稿画面 -->
+        <div class="flex flex-col w-4/5 bg-amber-100 items-center p-4 pt-6 pb-6 rounded-lg mt-10" id="post-screen">
+            <div class="text-2xl font-bold pb-5">
+            <p>ログ投稿</p>
+            </div>
+
+            <div class="flex flex-col w-full items-center mb-6">
+            <label for="insect-type" class="mb-2">種類</label>
+            <input type="insect-type" name="insect-type" id="insect-type" placeholder="見つけた品種" class="rounded-md w-3/4 p-1">
+            </div>
+
+            <div class="flex flex-col w-full items-center mb-6">
+            <label for="collect-place" class="mb-2">採集場所</label>
+            <input type="collect-place" name="collect-place" id="collect-place" placeholder="見つけた場所" class="rounded-md w-3/4 p-1">
+            </div>
+            
+            <div class="flex flex-col w-full items-center mb-6">
+            <label for="record-date" class="mb-2">日付</label>
+            <input type="date" name="record-date" id="record-date" class="rounded-md w-3/4 p-1">
+            </div>
+
+            <div class="flex flex-col w-full items-center mb-6">
+                <label for="memo" class="mb-2">メモ</label>
+                <textarea name="memo" id="memo" placeholder="メモを入力してください" class="rounded-md w-3/4 p-1"></textarea>
+            </div>
+
+            <button id="submit-btn" class="bg-gray-400 hover:bg-gray-500 rounded p-2 text-white">記録</button>
+            
+        </div>
+
+        <!-- 記録閲覧画面 -->
+        <div class="flex flex-col w-4/5 bg-white border border-gray-300 items-center p-4 pt-6 pb-6 rounded-lg mt-10" id="view-records">
+            <div class="text-2xl font-bold pb-5">
+            <p>記録</p>
+            </div>
+
+        </div>
+         
+
+    </div>
+
+    <footer class="fixed bottom-0 bg-gray-800 text-white py-4 w-full flex justify-center items-center">
+        <p class="text-sm">&copy; 2025 むしログ. All rights reserved.</p>
+    </footer>
+
+    </div>
+
+    <script type="module" src="../script.js"></script>
+    
+</body>
+</html>
